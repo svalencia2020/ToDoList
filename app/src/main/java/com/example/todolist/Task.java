@@ -1,5 +1,7 @@
 package com.example.todolist;
 
+import java.util.ArrayList;
+
 public class Task {
 
     //instance variables
@@ -7,10 +9,12 @@ public class Task {
     int date;
     boolean isDone;
     String tag;
-
+    String category;
+    public static void main(String[] args) {
+    }
 
    //constructor
-    public Task(){
+    public Task() {
         task = "default task";
         date = 0;
         isDone = false;
@@ -42,6 +46,11 @@ public class Task {
     public void editDate(int newDate){
 
         date = newDate;
+    }
+
+    public void editCategory(String newCategory){
+
+        category = newCategory;
     }
 
 
