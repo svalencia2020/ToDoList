@@ -1,8 +1,17 @@
 package com.example.todolist;
+import android.annotation.TargetApi;
+import android.os.Build;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
+import java.nio.charset.*;
 
 public class ToDoList {
+
 
 
     public static ArrayList<Task> getTasksByCategory(ArrayList<Task> myList, String category) {
@@ -14,10 +23,53 @@ public class ToDoList {
             return myList;
             //return everything in myList where category = work
         } else if (category.equals("personal")) {
-                     return myList;
+            return myList;
 
         }
         return myList;
+    }
+
+    //METHOD 1
+    public static void storeTextFile() throws FileNotFoundException {
+        System.out.println("creating from file");
+            Scanner s = null;
+            try {
+                s = new Scanner(new File("hw11test.txt")).useDelimiter(System.lineSeparator());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            System.out.println(s.hasNext());
+        ArrayList<String> list = new ArrayList<String>();
+        while (s.hasNext()) {
+            System.out.println("s");
+            list.add(s.nextLine());
+        }
+        for (String st:list) {
+            System.out.println(st);
+        }
+
+    }
+
+    //METHOD 2
+
+    @TargetApi(Build.VERSION_CODES.O)
+    public static void replacePhrase(String fileName, String target, String replacement, String toFileName) throws IOException {
+        Path path = Paths.get(fileName);
+        Path toPath = Paths.get(toFileName);
+        System.out.println(path);
+        Charset charset = Charset.forName("UTF-8");
+        BufferedWriter writer = Files.newBufferedWriter(toPath, charset);
+        Scanner scanner = new Scanner(path, charset.name());
+        String line;
+        while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                System.out.println(line);
+                line = line.replaceAll( target, replacement);
+                writer.write(line);
+                writer.newLine();
+        }
+        scanner.close();
+        writer.close();
     }
 
     public static void main(String[] args){
@@ -34,13 +86,16 @@ public class ToDoList {
             System.out.println("    2. View specific list");
             System.out.println("    3. Add a new task");
             System.out.println("    4. Check off task");
-            System.out.println("    4. Edit existing task");
-            System.out.println("    5. Change date for task");
-            System.out.println("     Choose a number: ");
+            System.out.println("    5. Edit existing task");
+            System.out.println("    6. Change date for task");
+            System.out.println("    7. Create New To-Do List");
+            System.out.println(" Choose a number: ");
+
 
 
             int choice = scan.nextInt();
             scan.nextLine();
+
             if (choice == 1) {
                 System.out.println("All Tasks");
                 System.out.println("------------------");
@@ -76,6 +131,7 @@ public class ToDoList {
             }
             else if (choice ==4) {
                 System.out.println("Check off task");
+//edit task in array
                 System.out.println("All Tasks");
                 System.out.println("------------------");
                 System.out.println("Due  Task  Is Done?");
@@ -85,13 +141,29 @@ public class ToDoList {
                     System.out.println("Is task done? (true = yes");
                     // if task is true delete it from lists
 
-            } }
+            }
+                //replace in file
+                try {
+                    replacePhrase("/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11test.txt", "In Progress", "Done", "/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11testchanged.txt");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             else if (choice ==5) {
                 System.out.println("Edit existing task");
             }else if (choice ==6) {
                 System.out.println("Change date for task");
-            }
-            else {
+            } else if (choice ==7) {
+                System.out.println("Create New To-Do List");
+                try {
+                    storeTextFile();
+                } catch (FileNotFoundException e) {
+
+                }
+
+            } else {
+
                 System.out.println("Invalid choice, try again.");
             }
 
@@ -101,6 +173,7 @@ public class ToDoList {
             System.out.println("    2. No");
             int quit = scan.nextInt();
             if (quit == 1) {
+                scan.close();
                 cont = false;
             }
 
