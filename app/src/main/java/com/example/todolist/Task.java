@@ -30,8 +30,9 @@ public class Task {
         isDone = true;
     }
 
-    public void printTask(){
-        System.out.println(date + "\t" + task + "\t"+ isDone);
+    public String printTask(){
+        System.out.println("task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "status (is your task complete?) : " + isDone);
+        return "task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "status (is your task complete?) : " + isDone;
     }
 
     public void editTask(String newTask){
@@ -43,7 +44,6 @@ public class Task {
 
         date = newDate;
     }
-
 
 
 }
