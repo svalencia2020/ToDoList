@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 public class ToDoList {
 
+    //METHOD 1
     public static void storeTextFile() throws FileNotFoundException {
         System.out.println("creating from file");
         Scanner s = new Scanner(new File("hw11test.txt")).useDelimiter(System.lineSeparator());
@@ -19,6 +20,25 @@ public class ToDoList {
             System.out.println(st);
         }
 
+    }
+
+    //METHOD 2
+    public static void replacePhrase(String fileName, String target, String replacement, String toFileName) throws IOException {
+        Path path = Paths.get(fileName);
+        Path toPath = Paths.get(toFileName);
+        Charset charset = Charset.forName("UTF-8");
+        BufferedWriter writer = Files.newBufferedWriter(toPath, charset);
+        Scanner scanner = new Scanner(path, charset.name());
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+                line = scanner.nextLine();
+                line = line.replaceAll( "In Progress", "Done");
+                writer.write(line);
+                writer.newLine();
+        }
+        scanner.close();
+        writer.close();
     }
 
     public static void main(String[] args){
