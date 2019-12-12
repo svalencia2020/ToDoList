@@ -1,8 +1,14 @@
 package com.example.todolist;
+import android.annotation.TargetApi;
+import android.os.Build;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.*;
 
 public class ToDoList {
 
@@ -23,17 +29,19 @@ public class ToDoList {
     }
 
     //METHOD 2
+    @TargetApi(Build.VERSION_CODES.O)
     public static void replacePhrase(String fileName, String target, String replacement, String toFileName) throws IOException {
         Path path = Paths.get(fileName);
         Path toPath = Paths.get(toFileName);
+        System.out.println(path);
         Charset charset = Charset.forName("UTF-8");
         BufferedWriter writer = Files.newBufferedWriter(toPath, charset);
         Scanner scanner = new Scanner(path, charset.name());
-
+        String line;
         while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
                 line = scanner.nextLine();
-                line = line.replaceAll( "In Progress", "Done");
+                System.out.println(line);
+                line = line.replaceAll( target, replacement);
                 writer.write(line);
                 writer.newLine();
         }
@@ -86,6 +94,11 @@ public class ToDoList {
 
             } else if (choice ==4) {
                 System.out.println("Check off task");
+                try {
+                    replacePhrase("/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11test.txt", "In Progress", "Done", "/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11testchanged.txt");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (choice ==5) {
                 System.out.println("Edit existing task");
             }else if (choice ==6) {
