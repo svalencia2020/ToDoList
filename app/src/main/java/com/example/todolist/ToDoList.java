@@ -14,19 +14,16 @@ public class ToDoList {
 
 
 
-    public static ArrayList<Task> getTasksByCategory(ArrayList<Task> myList, String category) {
+    private static ArrayList<Task> getTasksByCategory(ArrayList<Task> myList, String category) {
         System.out.println("searching for tasks in category " + category);
-        if (category.equals("work")) {
-            for (Task t : myList) {
-                t.printTask();
+        ArrayList<Task> specificList = new ArrayList<Task>();
+        for (Task t : myList) {
+            if (t.category.equals(category)) {
+                specificList.add(t);
             }
-            return myList;
-            //return everything in myList where category = work
-        } else if (category.equals("personal")) {
-            return myList;
-
         }
-        return myList;
+
+        return specificList;
     }
 
     //METHOD 1
