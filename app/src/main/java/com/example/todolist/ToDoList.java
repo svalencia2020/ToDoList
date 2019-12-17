@@ -69,6 +69,7 @@ public class ToDoList {
         writer.close();
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
         FileOutputStream out = null;
@@ -128,7 +129,14 @@ public class ToDoList {
 
                 count ++;
                 Task myTask = new Task(description, due, false, category, count  );
+                // add task to list
                 myList.add(myTask);
+                //add task to file
+                BufferedWriter writer = Files.newBufferedWriter(Paths.get("MasterToDoList.txt"), Charset.forName("UTF-8"));
+                String line = myTask.printTask();
+                writer.write(line);
+                writer.newLine();
+                writer.close();
 
             }
             else if (choice ==4) {
