@@ -72,10 +72,13 @@ public class ToDoList {
         writer.close();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
+        FileOutputStream out = null;
         ArrayList<Task> myList = new ArrayList<Task>();
         boolean cont = true;
+        int count = 0;
+
 
         System.out.println("Welcome to Your To Do List");
         System.out.println("--------------------------");
@@ -99,8 +102,8 @@ public class ToDoList {
             if (choice == 1) {
                 System.out.println("All Tasks");
                 System.out.println("------------------");
-                System.out.println("Due  Task  Status?");
-                System.out.println("---  ----  --------");
+                System.out.println("   Task          Due                Status?");
+                System.out.println("----------   -----------------     ------------");
                 for (Task t: myList){
                     t.printTask();
                 }
@@ -125,7 +128,9 @@ public class ToDoList {
                 scan.nextLine();
                 System.out.println("Enter your task category: (work or personal) ");
                 String category = scan.nextLine();
-                Task myTask = new Task(description, due, false, category);
+
+                count ++;
+                Task myTask = new Task(description, due, false, category, count  );
                 myList.add(myTask);
 
             }
@@ -134,32 +139,80 @@ public class ToDoList {
 //edit task in array
                 System.out.println("All Tasks");
                 System.out.println("------------------");
-                System.out.println("Due  Task  Is Done?");
+                System.out.println("Due  Task  Status?");
                 System.out.println("---  ----  --------");
                 for (Task t: myList){
                     t.printTask();
-                    System.out.println("Is task done? (true = yes");
-                    // if task is true delete it from lists
 
-            }
-                //replace in file
-                try {
-                    replacePhrase("/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11test.txt", "In Progress", "Done", "/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11testchanged.txt");
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+
+                System.out.println("What task would you like to check off? (choose the task number)");
+                int checkOff = scan.nextInt();
+                for (int i = 0; i < myList.size(); i++){
+                    myList.get(i).printTask();
+                    if(checkOff == myList.get(i).index){
+                        myList.remove(i);
+                    }
+                }
+
+//                //replace in file
+//                try {
+//                    replacePhrase("/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11test.txt", "In Progress", "Done", "/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11testchanged.txt");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
 
             else if (choice ==5) {
                 System.out.println("Edit existing task");
+                for (Task t: myList){
+                    t.printTask();
+
+                }
+
+                System.out.println("What task would you like to edit? (choose the number) ");
+               int edit = scan.nextInt();
+                scan.nextLine();
+                System.out.println("Please type in your new task name.");
+                String nTask = scan.nextLine();
+                for (int i = 0; i < myList.size(); i++){
+                    if(edit == myList.get(i).index){
+                       myList.get(i).task = nTask;
+                        myList.get(i).printTask();
+                    }
+                }
+
+
+
             }else if (choice ==6) {
                 System.out.println("Change date for task");
+                for (Task t: myList){
+                    t.printTask();
+
+                }
+                System.out.println("What task would you like to edit? (choose the number) ");
+                int editDate = scan.nextInt();
+                System.out.println("Please type in your new date");
+                int nDate = scan.nextInt();
+                for (int i = 0; i < myList.size(); i++){
+                    if(editDate == myList.get(i).index){
+                        myList.get(i).date = nDate;
+                        myList.get(i).printTask();
+                    }
+                }
+
+
+
             } else if (choice ==7) {
                 System.out.println("Create New To-Do List");
+                System.out.println("Please enter your to do list name.");
+                String fileName = scan.nextLine();
                 try {
-                    storeTextFile();
-                } catch (FileNotFoundException e) {
-
+                    out = new FileOutputStream(fileName + ".txt");
+                    out.write((fileName + " To Do List\n").getBytes());
+                    out.write("----------------------------".getBytes());
+                } catch (IOException x){
+                    System.out.println(x);
                 }
 
             } else {

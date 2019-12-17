@@ -10,6 +10,8 @@ public class Task {
     boolean isDone;
     String tag;
     String category;
+    int index;
+
     public static void main(String[] args) {
     }
 
@@ -19,13 +21,15 @@ public class Task {
         date = 0;
         isDone = false;
         tag = "all";
+        index = 0;
     }
 
-    public Task(String t, int d, boolean done, String  ht){
+    public Task(String t, int d, boolean done, String  ht, int i){
         task = t;
         date = d;
         isDone = done;
         tag =  ht;
+        index = i;
     }
 
 
@@ -35,8 +39,11 @@ public class Task {
     }
 
     public String printTask(){
-        System.out.println("task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "status (is your task complete?) : " + isDone);
-        return "task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "status (is your task complete?) : " + isDone;
+//        System.out.println(index + "    task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "In Progress? : " + isDone);
+//        return "task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "In Progress? : " + isDone;
+
+        System.out.println(index + " " + task + "       it is due the " + date +  "\t"  + "  In Progress? : " + isDone);
+        return index + " " + task + "       it is due the " + date +  "\t"  + "  In Progress? : " + isDone;
     }
 
     public void editTask(String newTask){
