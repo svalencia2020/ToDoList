@@ -27,23 +27,18 @@ public class ToDoList {
     }
 
     //METHOD 1
-    public static void storeTextFile() throws FileNotFoundException {
-        System.out.println("creating from file");
-            Scanner s = null;
-            try {
-                s = new Scanner(new File("hw11test.txt")).useDelimiter(System.lineSeparator());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            System.out.println(s.hasNext());
-        ArrayList<String> list = new ArrayList<String>();
-        while (s.hasNext()) {
-            System.out.println("s");
-            list.add(s.nextLine());
+    public static void createTaskListFromFile() throws FileNotFoundException {
+        System.out.println("creating list from file");
+        Scanner s = new Scanner(new File("MasterToDoList.txt")).useDelimiter(System.lineSeparator());
+        ArrayList<Task> list = new ArrayList<Task>();
+        while (s.hasNextLine()) {
+            String[] a = s.nextLine().split("\t");
+            list.add(new Task(a[1], Integer.parseInt(a[3]), a[2], Integer.parseInt(a[0]), a[4]));
         }
-        for (String st:list) {
-            System.out.println(st);
+        for (Task t:list) {
+            System.out.println(t.printTask());
         }
+
 
     }
 
@@ -55,7 +50,8 @@ public class ToDoList {
         Path toPath = Paths.get(toFileName);
         System.out.println(path);
         Charset charset = Charset.forName("UTF-8");
-        BufferedWriter writer = Files.newBufferedWriter(toPath, charset);
+        FileWriter fw = new FileWriter(toFileName, true);
+        BufferedWriter writer = new BufferedWriter(fw);
         Scanner scanner = new Scanner(path, charset.name());
         String line;
         while (scanner.hasNextLine()) {
@@ -100,10 +96,10 @@ public class ToDoList {
             if (choice == 1) {
                 System.out.println("All Tasks");
                 System.out.println("------------------");
-                System.out.println("   Task          Due                Status?");
-                System.out.println("----------   -----------------     ------------");
-                for (Task t: myList){
-                    t.printTask();
+//                System.out.println("   Task          Due                Status?");
+//                System.out.println("----------   -----------------     ------------");
+                for (Task task: myList){
+                    task.printTask();
                 }
             } else if (choice ==2) {
                 System.out.println("View specific list");
@@ -126,14 +122,18 @@ public class ToDoList {
                 scan.nextLine();
                 System.out.println("Enter your task category: (work or personal) ");
                 String category = scan.nextLine();
+                System.out.println("Is the task in progress? ");
+                String progress = scan.nextLine();
+
 
                 count ++;
-                Task myTask = new Task(description, due, false, category, count  );
+                Task myTask = new Task(description, due, category, count, progress);
                 // add task to list
                 myList.add(myTask);
                 //add task to file
-                BufferedWriter writer = Files.newBufferedWriter(Paths.get("MasterToDoList.txt"), Charset.forName("UTF-8"));
-                String line = myTask.printTask();
+                FileWriter fw = new FileWriter("MasterToDoList.txt", true);
+                BufferedWriter writer = new BufferedWriter(fw);
+                String line = myTask.printTaskForFile();
                 writer.write(line);
                 writer.newLine();
                 writer.close();
@@ -144,10 +144,10 @@ public class ToDoList {
 //edit task in array
                 System.out.println("All Tasks");
                 System.out.println("------------------");
-                System.out.println("Due  Task  Status?");
-                System.out.println("---  ----  --------");
-                for (Task t: myList){
-                    t.printTask();
+//                System.out.println("Due  Task  Status?");
+//                System.out.println("---  ----  --------");
+                for (Task task: myList){
+                    task.printTask();
 
                 }
 
@@ -159,19 +159,20 @@ public class ToDoList {
                         myList.remove(i);
                     }
                 }
+                //then delete that line from file
 
-//                //replace in file
-//                try {
-//                    replacePhrase("/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11test.txt", "In Progress", "Done", "/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11testchanged.txt");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+//                //replace in file - move to changing a specific task to in progress
+                try {
+                    replacePhrase("/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/MasterToDoList.txt", "In Progress", "Done", "/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11testchanged.txt");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
-            else if (choice ==5) {
+            else if (choice ==5) { //make ur text say edit name
                 System.out.println("Edit existing task");
-                for (Task t: myList){
-                    t.printTask();
+                for (Task task: myList){
+                    task.printTask();
 
                 }
 
@@ -191,8 +192,8 @@ public class ToDoList {
 
             }else if (choice ==6) {
                 System.out.println("Change date for task");
-                for (Task t: myList){
-                    t.printTask();
+                for (Task task: myList){
+                    task.printTask();
 
                 }
                 System.out.println("What task would you like to edit? (choose the number) ");
@@ -211,6 +212,7 @@ public class ToDoList {
             } else if (choice ==7) {
                 System.out.println("Create New To-Do List");
                 System.out.println("Please enter your to do list name.");
+                createTaskListFromFile();
                 String fileName = scan.nextLine();
                 try {
                     out = new FileOutputStream(fileName + ".txt");

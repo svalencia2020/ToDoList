@@ -7,7 +7,8 @@ public class Task {
     //instance variables
     String task;
     int date;
-    boolean isDone;
+   // boolean isDone;
+    String progress;
     String tag;
     String category;
     int index;
@@ -19,31 +20,34 @@ public class Task {
     public Task() {
         task = "default task";
         date = 0;
-        isDone = false;
+//        isDone = false;
+        String progress = "unknown";
         tag = "all";
         index = 0;
     }
 
-    public Task(String t, int d, boolean done, String  ht, int i){
-        task = t;
+    public Task(String task, int d, String  cat, int i, String progress){
+        this.task = task;
         date = d;
-        isDone = done;
-        tag =  ht;
         index = i;
+        category = cat;
+        this.progress = progress;
     }
 
 
     //methods
-    public void checkDone(){
-        isDone = true;
-    }
+//    public void checkDone(){
+//        isDone = true;
+//    }
 
     public String printTask(){
-//        System.out.println(index + "    task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "In Progress? : " + isDone);
-//        return "task name: " + task + "     it is due the " + date + "  of this month" + "\t"  + "In Progress? : " + isDone;
 
-        System.out.println(index + " " + task + "       it is due the " + date +  "\t"  + "  In Progress? : " + isDone);
-        return index + " " + task + "       it is due the " + date +  "\t"  + "  In Progress? : " + isDone;
+        System.out.println(index + ". You need to " + task + ". It is due on the " + date +  "th of this month." + "\t"  + " Your task is " + progress);
+        return index + ". You need to " + task + ". It is due on the " + date +  "th of this month." + "\t"  + " Your task is " + progress;
+    }
+
+    public String printTaskForFile() {
+        return index + "\t" + task + "\t" +  category + "\t" + date + "\t" + progress;
     }
 
     public void editTask(String newTask){
