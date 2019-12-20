@@ -72,10 +72,11 @@ public class ToDoList {
         boolean cont = true;
         int count = 0;
 
-
+//Introduction to User
         System.out.println("Welcome to Your To Do List");
         System.out.println("--------------------------");
 
+//Displays options for user to interact with ToDo List        
         while(cont) {
             System.out.println("Menu");
             System.out.println("    1. View all tasks");
