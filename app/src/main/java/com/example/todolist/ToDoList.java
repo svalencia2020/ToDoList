@@ -13,7 +13,7 @@ import java.nio.charset.*;
 public class ToDoList {
 
 
-
+//
     private static ArrayList<Task> getTasksByCategory(ArrayList<Task> myList, String category) {
         System.out.println("searching for tasks in category " + category);
         ArrayList<Task> specificList = new ArrayList<Task>();
@@ -103,7 +103,7 @@ public class ToDoList {
                 }
             } else if (choice ==2) {
                 System.out.println("View specific list");
-                System.out.println("Which list would you like to view (work or personal)");
+                System.out.println("Which list would you like to view (Work or Personal)");
                 String answer = scan.nextLine();
                 //scan.nextLine();
 
@@ -115,14 +115,14 @@ public class ToDoList {
             } else if (choice ==3) {
                 System.out.println("Add a new task");
                 System.out.println("------------------");
-                System.out.println("Describe your task: ");
+                System.out.println("What do you need to complete? (ex. Clean Room): ");
                 String description = scan.nextLine();
-                System.out.println("Enter the date it is due: ");
+                System.out.println("Enter the day it is due (ex. 12): ");
                 int due = scan.nextInt();
                 scan.nextLine();
-                System.out.println("Enter your task category: (work or personal) ");
+                System.out.println("Enter your task category (Work or Personal): ");
                 String category = scan.nextLine();
-                System.out.println("Is the task in progress? ");
+                System.out.println("Is the task in progress? (If yes, (in Progress). If no, (done)");
                 String progress = scan.nextLine();
 
 
@@ -144,8 +144,6 @@ public class ToDoList {
 //edit task in array
                 System.out.println("All Tasks");
                 System.out.println("------------------");
-//                System.out.println("Due  Task  Status?");
-//                System.out.println("---  ----  --------");
                 for (Task task: myList){
                     task.printTask();
 
@@ -170,7 +168,7 @@ public class ToDoList {
             }
 
             else if (choice ==5) { //make ur text say edit name
-                System.out.println("Edit existing task");
+                System.out.println("Edit task name");
                 for (Task task: myList){
                     task.printTask();
 

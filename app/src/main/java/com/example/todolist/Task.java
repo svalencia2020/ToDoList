@@ -43,7 +43,7 @@ public class Task {
     public String printTask(){
 
         System.out.println(index + ". You need to " + task + ". It is due on the " + date +  "th of this month." + "\t"  + " Your task is " + progress);
-        return index + ". You need to " + task + ". It is due on the " + date +  "th of this month." + "\t"  + " Your task is " + progress;
+        return index + ". You need to " + task + ". It is due on the " + date +  "th of this month." + "\t" + " Your task is " + progress + ".";
     }
 
     public String printTaskForFile() {
