@@ -23,17 +23,17 @@ Choose the number you would like to access (We recommend you start with number 3
 ------------------------------------------------Method Breakdowns-----------------------------------------
 
 1. (getTasksByCategory, INCOMPLETE) 
-Reads user input for View Specific List, will then display specific list 
+- Reads user input for View Specific List, will then display specific list 
 
 2. (createTaskListFromFile, INCOMPLETE) 
-Reads user input for Create New To-Do List, will then prompt for name of new list 
+- Reads user input for Create New To-Do List, will then prompt for name of new list 
 
-3.(replacePhrase, INCOMPLETE, NOT USED) 
-intended to change “In Progress” to “Done,” but we decided to use Check Off Task instead. In the future, we would like to use replacePhrase which would allow users to specify whether a task is “Not Started” or “Incomplete
+3. (replacePhrase, INCOMPLETE, NOT USED) 
+- intended to change “In Progress” to “Done,” but we decided to use Check Off Task instead. In the future, we would like to use replacePhrase which would allow users to specify whether a task is “Not Started” or “Incomplete
 
 4. (printTask, COMPLETE) 
-Is displayed when user chooses to “Read all tasks”. Reads user input for info about task (index, task, date, progress), then rearranged it to create an organized message about their task
+- Is displayed when user chooses to “Read all tasks”. Reads user input for info about task (index, task, date, progress), then rearranged it to create an organized message about their task
 
 5. (printTaskForFile, COMPLETE) 
-Reads user input for info about task (index, task, date, progress). It outputs a much clearer, organized, and easy to read version of the user input. 
+- Reads user input for info about task (index, task, date, progress). It outputs a much clearer, organized, and easy to read version of the user input. 
 
