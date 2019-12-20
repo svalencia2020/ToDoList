@@ -11,11 +11,11 @@ import java.io.*;
 import java.nio.charset.*;
 
 public class ToDoList {
+//ALL NUMBERS ON METHODS CORRESPOND WITH READ ME FILE (MORE SPECIFIC INFO ON FILE)
 
-
-//
+// #1
     private static ArrayList<Task> getTasksByCategory(ArrayList<Task> myList, String category) {
-        System.out.println("searching for tasks in category " + category);
+        System.out.println("Searching for tasks in category: " + category);
         ArrayList<Task> specificList = new ArrayList<Task>();
         for (Task t : myList) {
             if (t.category.equals(category)) {
@@ -26,7 +26,7 @@ public class ToDoList {
         return specificList;
     }
 
-    //METHOD 1
+    // #2
     public static void createTaskListFromFile() throws FileNotFoundException {
         System.out.println("creating list from file");
         Scanner s = new Scanner(new File("MasterToDoList.txt")).useDelimiter(System.lineSeparator());
@@ -42,8 +42,7 @@ public class ToDoList {
 
     }
 
-    //METHOD 2
-
+// #3
     @TargetApi(Build.VERSION_CODES.O)
     public static void replacePhrase(String fileName, String target, String replacement, String toFileName) throws IOException {
         Path path = Paths.get(fileName);
@@ -83,8 +82,8 @@ public class ToDoList {
             System.out.println("    2. View specific list");
             System.out.println("    3. Add a new task");
             System.out.println("    4. Check off task");
-            System.out.println("    5. Edit existing task");
-            System.out.println("    6. Change date for task");
+            System.out.println("    5. Change name of existing task");
+            System.out.println("    6. Change date of existing task");
             System.out.println("    7. Create New To-Do List");
             System.out.println(" Choose a number: ");
 
