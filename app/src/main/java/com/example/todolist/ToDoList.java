@@ -76,7 +76,7 @@ public class ToDoList {
         System.out.println("Welcome to Your To Do List");
         System.out.println("--------------------------");
 
-//Displays options for user to interact with ToDo List        
+//Displays options for user to interact with ToDo List
         while(cont) {
             System.out.println("Menu");
             System.out.println("    1. View all tasks");
@@ -93,14 +93,17 @@ public class ToDoList {
             int choice = scan.nextInt();
             scan.nextLine();
 
+ //If user chooses #1, this will display
+  //allows user to view all tasks (no matter the category)
             if (choice == 1) {
                 System.out.println("All Tasks");
                 System.out.println("------------------");
-//                System.out.println("   Task          Due                Status?");
-//                System.out.println("----------   -----------------     ------------");
                 for (Task task: myList){
                     task.printTask();
                 }
+
+//If user chooses #2, this will display
+//allows user to view a specific task
             } else if (choice ==2) {
                 System.out.println("View specific list");
                 System.out.println("Which list would you like to view (Work or Personal)");
@@ -109,9 +112,8 @@ public class ToDoList {
 
                 getTasksByCategory(myList, answer);
 
-
-
-
+//If user chooses #3, this will display
+//allows user to create new task
             } else if (choice ==3) {
                 System.out.println("Add a new task");
                 System.out.println("------------------");
@@ -125,7 +127,7 @@ public class ToDoList {
                 System.out.println("Is the task in progress? (If yes, (in Progress). If no, (done)");
                 String progress = scan.nextLine();
 
-
+//reads user input about task and stores in MasterToDoList file
                 count ++;
                 Task myTask = new Task(description, due, category, count, progress);
                 // add task to list
@@ -139,6 +141,9 @@ public class ToDoList {
                 writer.close();
 
             }
+
+  //If user chooses #4, this will display
+  //Allows user to delete task (check off)
             else if (choice ==4) {
                 System.out.println("Check off task");
 //edit task in array
@@ -159,14 +164,17 @@ public class ToDoList {
                 }
                 //then delete that line from file
 
-//                //replace in file - move to changing a specific task to in progress
+//replace in file - move to changing a specific task to in progress
                 try {
+//DO NOT KNOW HOW TO CHANGE HARD-CODED FILE PATHS TO MAKE GENERAL
                     replacePhrase("/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/MasterToDoList.txt", "In Progress", "Done", "/Users/cwright2020/Desktop/ToDoList/ToDoList/app/src/main/java/com/example/todolist/hw11testchanged.txt");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
+//If user chooses #5, this will display
+//allows user to edit name (of existing task)
             else if (choice ==5) { //make ur text say edit name
                 System.out.println("Edit task name");
                 for (Task task: myList){
@@ -187,7 +195,8 @@ public class ToDoList {
                 }
 
 
-
+//If user chooses #6, this will display
+//allows user to change the date in a specific task
             }else if (choice ==6) {
                 System.out.println("Change date for task");
                 for (Task task: myList){
@@ -206,7 +215,8 @@ public class ToDoList {
                 }
 
 
-
+//If user chooses #7, this will display
+// allows user to create new to do list
             } else if (choice ==7) {
                 System.out.println("Create New To-Do List");
                 System.out.println("Please enter your to do list name.");
@@ -224,7 +234,8 @@ public class ToDoList {
 
                 System.out.println("Invalid choice, try again.");
             }
-
+//Allows users to continue interacting with program, or choose to "quit" which will finish the process (with exit code 0)
+ // if user chooses to continue, the menu will be displayed again and they will be prompted to choose a action
             System.out.println("_______________________________________");
             System.out.println("Would you like to quit the application?");
             System.out.println("    1. Yes");
